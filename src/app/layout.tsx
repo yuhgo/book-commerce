@@ -1,24 +1,22 @@
 import "@/app/globals.css";
 
 import type { Metadata } from "next";
-import { Zen_Antique } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
 import type { ReactNode } from "react";
 
-const zenAntique = Zen_Antique({
-	display: "swap",
+const noteSansJp = Noto_Sans_JP({
 	subsets: ["latin"],
-	variable: "--font-zen-antique",
 	weight: "400",
 });
 
 export const metadata: Metadata = {
-	title: "Next Frontier",
-	description: "Next Frontier",
+	title: "Book Commerce",
+	description: "Book Commerce",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
-		<html className={zenAntique.variable} lang="ja">
+		<html className={noteSansJp.className} lang="ja">
 			<body className="light">{children}</body>
 			{/*
       TODO: GTMの設定をする
