@@ -55,7 +55,7 @@ const books = [
 		id: 3,
 		title: "Book 3",
 		price: 4980,
-		thumbnail: "/thumbnails/openai-chatapplication-udem.png",
+		thumbnail: "/thumbnails/openai-chatapplication-udemy.png",
 		author: {
 			id: 3,
 			name: "Author 3",
