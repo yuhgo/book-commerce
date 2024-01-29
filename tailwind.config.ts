@@ -19,6 +19,21 @@ const config: Config = {
 			fontFamily: {
 				zenAntique: ["var(--font-zen-antique)"],
 			},
+			keyframes: {
+				fadeIn: {
+					from: {
+						opacity: "0",
+						transform: "scale(0.9)",
+					},
+					to: {
+						opacity: "1",
+						transform: "scale(1)",
+					},
+				},
+			},
+			animation: {
+				modal: "fadeIn 0.3s ease-out forwards",
+			},
 		},
 	},
 	darkMode: "class",
