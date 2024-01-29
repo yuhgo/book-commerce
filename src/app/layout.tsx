@@ -1,3 +1,4 @@
+import { Header } from "@/app/_component/Header";
 import "@/app/globals.css";
 
 import type { Metadata } from "next";
@@ -17,7 +18,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html className={noteSansJp.className} lang="ja">
-			<body className="light">{children}</body>
+			<body className="light">
+				<Header />
+				{children}
+			</body>
 			{/*
       TODO: GTMの設定をする
       https://zenn.dev/chot/articles/introduction-of-next-third-parties
