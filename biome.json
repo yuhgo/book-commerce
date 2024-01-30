@@ -50,6 +50,7 @@
 				"loading.tsx",
 				"not-found.tsx",
 				"page.tsx",
+				"route.ts",
 				"template.tsx",
 				".storybook",
 				"*.stories.*",
