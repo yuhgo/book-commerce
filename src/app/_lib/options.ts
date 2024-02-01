@@ -4,7 +4,7 @@ import type { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
 export const nextAuthOptions = {
-	debug: false,
+	debug: true,
 	providers: [
 		GithubProvider({
 			clientId: process.env.GITHUB_ID || "",
@@ -12,6 +12,8 @@ export const nextAuthOptions = {
 		}),
 	],
 	adapter: PrismaAdapter(prisma),
+	// endpoints: {},
+	// database: process.env.POSGRES_URL || "",
 	callbacks: {
 		session: ({ session, user }) => {
 			return {
