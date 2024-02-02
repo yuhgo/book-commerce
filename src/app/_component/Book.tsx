@@ -24,11 +24,11 @@ export const Book: FC<Props> = (props) => {
 
 	const handlePurchaseConfirm = () => {
 		if (user) {
+			// Stripeの決済処理
+		} else {
 			setShowModal(false);
 			// ログインページへリダイレクト
 			router.push("/login");
-		} else {
-			// Stripeの決済処理
 		}
 	};
 
