@@ -1,4 +1,5 @@
 import { Header } from "@/app/_component/Header";
+import { NextAuthProvider } from "@/app/_lib/nextAuth/provider";
 import "@/app/globals.css";
 
 import type { Metadata } from "next";
@@ -19,8 +20,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html className={noteSansJp.className} lang="ja">
 			<body className="light">
-				<Header />
-				{children}
+				<NextAuthProvider>
+					<Header />
+					{children}
+				</NextAuthProvider>
 			</body>
 			{/*
       TODO: GTMの設定をする
