@@ -1,9 +1,10 @@
 "use client";
 
 import type { BookContent } from "@/app/_types/response";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
-import type { FC } from "react";
+import { useRouter } from "next/navigation";
+import { type FC, useState } from "react";
 
 type Props = {
 	book: BookContent;
@@ -12,10 +13,38 @@ type Props = {
 export const Book: FC<Props> = (props) => {
 	const { book } = props;
 
+	const [showModal, setShowModal] = useState(false);
+	const router = useRouter();
+	const { data } = useSession();
+	const user = data?.user;
+
+	const handlePurChaseClick = () => {
+		setShowModal(true);
+	};
+
+	const handlePurchaseConfirm = () => {
+		if (user) {
+			setShowModal(false);
+			// ログインページへリダイレクト
+			router.push("/login");
+		} else {
+			// Stripeの決済処理
+		}
+	};
+
+	const handleCancel = () => {
+		setShowModal(false);
+	};
+
 	return (
 		<>
 			<div className="m-4 flex flex-col items-center">
-				<Link href="" className="cursor-pointer shadow-2xl duration-300 hover:translate-y-1 hover:shadow-none">
+				<button
+					type="button"
+					onClick={() => handlePurChaseClick()}
+					className="cursor-pointer shadow-2xl duration-300 hover:translate-y-1 hover:shadow-none"
+					tabIndex={0} // クリック可能な要素にはtabIndex={0}を追加
+				>
 					<Image
 						priority={true}
 						src={book.thumbnail.url}
@@ -29,19 +58,29 @@ export const Book: FC<Props> = (props) => {
 						<p className="mt-2 text-lg text-slate-600">この本は○○..</p>
 						<p className="mt-2 text-md text-slate-700">値段 : {book.price}円</p>
 					</div>
-				</Link>
+				</button>
 
-				{/* <div className="absolute top-0 left-0 right-0 bottom-0 bg-slate-900 bg-opacity-50 flex justify-center items-center modal">
-          <div className="bg-white p-8 rounded-lg">
-            <h3 className="text-xl mb-4">本を購入しますか？</h3>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
-              購入する
-            </button>
-            <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-              キャンセル
-            </button>
-          </div>
-        </div> */}
+				{showModal && (
+					<div className="absolute inset-0 flex animate-modal items-center justify-center bg-slate-900 bg-opacity-50 duration-300">
+						<div className="rounded-lg bg-white p-8">
+							<h3 className="mb-4 text-xl">本を購入しますか？</h3>
+							<button
+								type="button"
+								onClick={() => handlePurchaseConfirm()}
+								className="mr-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+							>
+								購入する
+							</button>
+							<button
+								type="button"
+								onClick={() => handleCancel()}
+								className="rounded bg-gray-500 px-4 py-2 font-bold text-white hover:bg-gray-700"
+							>
+								キャンセル
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
 		</>
 	);
