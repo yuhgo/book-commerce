@@ -8,7 +8,7 @@
 	"[markdown]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"cSpell.words": ["biomejs", "Filenaming", "nextjs"],
+	"cSpell.words": ["biomejs", "bookcommerce", "Filenaming", "nextjs"],
 	"css.validate": false,
 	"editor.codeActionsOnSave": {
 		"quickfix.biome": "always",

@@ -1,12 +1,12 @@
 "use client";
 
-import type { TBook } from "@/app/page";
+import type { BookContent } from "@/app/_types/response";
 import Image from "next/image";
 import Link from "next/link";
 import type { FC } from "react";
 
 type Props = {
-	book: TBook;
+	book: BookContent;
 };
 
 export const Book: FC<Props> = (props) => {
@@ -18,7 +18,7 @@ export const Book: FC<Props> = (props) => {
 				<Link href="" className="cursor-pointer shadow-2xl duration-300 hover:translate-y-1 hover:shadow-none">
 					<Image
 						priority={true}
-						src={book.thumbnail}
+						src={book.thumbnail.url}
 						alt={book.title}
 						width={450}
 						height={350}
@@ -26,7 +26,7 @@ export const Book: FC<Props> = (props) => {
 					/>
 					<div className="rounded-b-md bg-slate-100 px-4 py-4">
 						<h2 className="font-semibold text-lg">{book.title}</h2>
-						<p className="mt-2 text-lg text-slate-600">{book.content}</p>
+						<p className="mt-2 text-lg text-slate-600">この本は○○..</p>
 						<p className="mt-2 text-md text-slate-700">値段 : {book.price}円</p>
 					</div>
 				</Link>
