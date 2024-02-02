@@ -12,8 +12,6 @@ export const nextAuthOptions = {
 		}),
 	],
 	adapter: PrismaAdapter(prisma),
-	// endpoints: {},
-	// database: process.env.POSGRES_URL || "",
 	callbacks: {
 		session: ({ session, user }) => {
 			return {

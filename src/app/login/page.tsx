@@ -13,7 +13,6 @@ const Login = async () => {
 				<div className="mt-8 space-y-6">
 					{providers &&
 						Object.values(providers).map((provider) => {
-							const hoge = provider.id;
 							if (provider.name === "GitHub") {
 								return <GithubLoginButton key={provider.id} providerId={provider.id} />;
 							}
