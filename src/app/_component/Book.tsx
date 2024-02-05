@@ -1,14 +1,17 @@
 "use client";
 
+import Image from "next/image";
+import { type FC, useState } from "react";
+
 import type { BookContent } from "@/app/_types/response";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { type FC, useState } from "react";
 
 type Props = {
 	book: BookContent;
 };
+
+type CheckoutData = Pick<BookContent, "title" | "price">;
 
 export const Book: FC<Props> = (props) => {
 	const { book } = props;
@@ -22,9 +25,29 @@ export const Book: FC<Props> = (props) => {
 		setShowModal(true);
 	};
 
+	const startCheckout = async ({ title, price }: CheckoutData) => {
+		try {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ title, price }),
+			});
+
+			const resData = await res.json();
+			if (resData) {
+				router.push(resData.checkout_url);
+			}
+		} catch (error) {
+			console.error("Error:", error);
+		}
+	};
+
 	const handlePurchaseConfirm = () => {
 		if (user) {
 			// Stripeの決済処理
+			startCheckout({ title: book.title, price: book.price });
 		} else {
 			setShowModal(false);
 			// ログインページへリダイレクト
