@@ -32,7 +32,7 @@ export const Book: FC<Props> = (props) => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ title, price }),
+				body: JSON.stringify({ title, price, bookId: book.id, userId: user?.id }),
 			});
 
 			const resData = await res.json();

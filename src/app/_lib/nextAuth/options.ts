@@ -1,7 +1,15 @@
 import { prisma } from "@/app/_lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import type { NextAuthOptions } from "next-auth";
+import type { DefaultSession, NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+
+declare module "next-auth" {
+	interface Session extends DefaultSession {
+		user: {
+			id: string;
+		} & DefaultSession["user"];
+	}
+}
 
 export const nextAuthOptions = {
 	debug: false,
