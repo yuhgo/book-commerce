@@ -23,7 +23,7 @@ const PurchaseSuccess: FC<Props> = async (props) => {
 		})
 		.catch((error) => console.error(error));
 
-	const purchasedBookId = data?.purchase.bookId ?? "";
+	const purchasedBookId = data?.purchase?.bookId ?? "";
 	const purchasedBookUrl = purchasedBookId ? `/book/${purchasedBookId}` : "/";
 
 	return (
