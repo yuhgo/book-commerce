@@ -2,10 +2,22 @@ import { prisma } from "@/app/_lib/prisma";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
+export type CheckoutSuccessResponse = {
+	purchase: {
+		id: string;
+		userId: string;
+		bookId: string;
+		createdAt: Date;
+	};
+};
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
 // 購入履歴の保存
-export const POST = async (request: Request, _response: Response) => {
+export const POST = async (
+	request: Request,
+	_response: Response,
+): Promise<NextResponse<CheckoutSuccessResponse | unknown>> => {
 	const { sessionId } = await request.json();
 
 	try {
