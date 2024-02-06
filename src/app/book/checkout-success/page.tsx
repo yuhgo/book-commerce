@@ -1,6 +1,29 @@
 import Link from "next/link";
+import type { FC } from "react";
 
-const PurchaseSuccess = () => {
+type Props = {
+	searchParams: { [key: string]: string | string[] | undefined };
+};
+
+const PurchaseSuccess: FC<Props> = async (props) => {
+	const { searchParams } = props;
+
+	const sessionId = (searchParams.session_id as string) ?? "";
+
+	if (sessionId) {
+		try {
+			await fetch(`${process.env.API_URL}/checkout/success`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ sessionId }),
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 	return (
 		<div className="mt-20 flex items-center justify-center">
 			<div className="rounded-lg bg-white p-6 shadow-lg">
