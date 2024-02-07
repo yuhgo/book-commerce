@@ -1,14 +1,10 @@
 import { prisma } from "@/app/_lib/prisma";
+import type { Purchase } from "@prisma/client";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 export type CheckoutSuccessResponse = {
-	purchase: {
-		id: string;
-		userId: string;
-		bookId: string;
-		createdAt: Date;
-	};
+	purchase: Purchase;
 };
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");

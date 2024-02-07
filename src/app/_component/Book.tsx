@@ -9,12 +9,13 @@ import { useRouter } from "next/navigation";
 
 type Props = {
 	book: BookContent;
+	isPurchased: boolean;
 };
 
 type CheckoutData = Pick<BookContent, "title" | "price">;
 
 export const Book: FC<Props> = (props) => {
-	const { book } = props;
+	const { book, isPurchased } = props;
 
 	const [showModal, setShowModal] = useState(false);
 	const router = useRouter();
@@ -22,6 +23,10 @@ export const Book: FC<Props> = (props) => {
 	const user = data?.user;
 
 	const handlePurChaseClick = () => {
+		if (isPurchased) {
+			alert("この商品は購入済みです。");
+			return;
+		}
 		setShowModal(true);
 	};
 
