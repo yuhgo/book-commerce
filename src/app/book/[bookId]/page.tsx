@@ -31,8 +31,9 @@ const page: FC<Props> = async (props) => {
 					/>
 
 					<div className="mt-2 flex items-center justify-between">
-						{/* biome-ignore lint/style/noNonNullAssertion: <explanation> */}
-						<span className="text-gray-500 text-sm">公開日: {new Date(book.publishedAt!).toLocaleString()}</span>
+						<span className="text-gray-500 text-sm">
+							公開日: {new Date(book.publishedAt ?? book.createdAt).toLocaleString()}
+						</span>
 						<span className="text-gray-500 text-sm">最終更新: {new Date(book.updatedAt).toLocaleString()}</span>
 					</div>
 				</div>
