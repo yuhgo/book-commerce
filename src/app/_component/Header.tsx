@@ -7,6 +7,9 @@ export const Header = async () => {
 	const session = await getServerSession(nextAuthOptions);
 	const user = session?.user;
 
+	console.log("GITHUB_ID", process.env.GITHUB_ID);
+	console.log("NEXT_PUBLIC_API_URL", process.env.NEXT_PUBLIC_API_URL);
+
 	return (
 		<header className="bg-slate-600 text-gray-100 shadow-lg">
 			<nav className="flex items-center justify-between p-4">

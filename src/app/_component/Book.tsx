@@ -17,6 +17,9 @@ type CheckoutData = Pick<BookContent, "title" | "price">;
 export const Book: FC<Props> = (props) => {
 	const { book, isPurchased } = props;
 
+	console.log(process.env.GITHUB_ID);
+	console.log("NEXT_PUBLIC_API_URL", process.env.NEXT_PUBLIC_API_URL);
+
 	const [showModal, setShowModal] = useState(false);
 	const router = useRouter();
 	const { data } = useSession();
