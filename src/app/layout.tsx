@@ -1,10 +1,11 @@
 import { Header } from "@/app/_component/Header";
+import { Loading } from "@/app/_component/Loading";
 import { NextAuthProvider } from "@/app/_lib/nextAuth/provider";
 import "@/app/globals.css";
 
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
-import type { ReactNode } from "react";
+import { type ReactNode, Suspense } from "react";
 
 const noteSansJp = Noto_Sans_JP({
 	subsets: ["latin"],
@@ -22,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			<body className="light">
 				<NextAuthProvider>
 					<Header />
-					{children}
+					<Suspense fallback={<Loading />}>{children}</Suspense>
 				</NextAuthProvider>
 			</body>
 			{/*
