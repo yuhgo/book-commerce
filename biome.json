@@ -38,7 +38,8 @@
 				"all": true,
 				"noNodejsModules": "off"
 			}
-		}
+		},
+		"ignore": ["*env/*"]
 	},
 	"overrides": [
 		{
