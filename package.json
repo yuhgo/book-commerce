@@ -3,7 +3,8 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "APP_ENV=local next dev",
+		"prod-dev": "APP_ENV=prod next dev",
 		"build": "prisma generate && next build",
 		"start": "next start",
 		"lint": "biome lint .",
