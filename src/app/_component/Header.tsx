@@ -1,4 +1,3 @@
-import { SignoutButton } from "@/app/_component/SignoutButton";
 import { nextAuthOptions } from "@/app/_lib/nextAuth/options";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
@@ -20,13 +19,20 @@ export const Header = async () => {
 					</Link>
 
 					<Link
-						href={user ? "/profile" : "/login"}
+						href={user ? "/profile" : "/api/auth/signin"}
 						className="rounded-md px-3 py-2 font-medium text-gray-300 text-sm hover:text-white"
 					>
 						{user ? "プロフィール" : "ログイン"}
 					</Link>
 
-					{user ? <SignoutButton>ログアウト</SignoutButton> : null}
+					{user ? (
+						<Link
+							href="/api/auth/signout"
+							className="rounded-md px-3 py-2 font-medium text-gray-300 text-sm hover:text-white"
+						>
+							ログアウト
+						</Link>
+					) : null}
 
 					<Link href="/profile">
 						<Image width={50} height={50} alt="profile_icon" src={user?.image ?? "/default_icon.png"} />
