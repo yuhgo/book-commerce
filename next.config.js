@@ -1,4 +1,4 @@
-loadEnv(process.env.APP_ENV);
+// loadEnv(process.env.APP_ENV);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -21,14 +21,14 @@ module.exports = nextConfig;
 /**
  * @param {string} appEnv
  */
-function loadEnv(appEnv = "local") {
-	const env = {
-		...require(`./env/env.${appEnv}`),
-		// biome-ignore lint/style/useNamingConvention: <explanation>
-		NEXT_PUBLIC_APP_ENV: appEnv,
-	};
+// function loadEnv(appEnv = "local") {
+// 	const env = {
+// 		...require(`./env/env.${appEnv}`),
+// 		// biome-ignore lint/style/useNamingConvention: <explanation>
+// 		NEXT_PUBLIC_APP_ENV: appEnv,
+// 	};
 
-	for (const [key, value] of Object.entries(env)) {
-		process.env[key] = value;
-	}
-}
+// 	for (const [key, value] of Object.entries(env)) {
+// 		process.env[key] = value;
+// 	}
+// }

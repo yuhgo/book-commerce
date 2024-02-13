@@ -11,12 +11,18 @@ declare module "next-auth" {
 	}
 }
 
+// const isProduction = process.env.NODE_ENV === "production";
+// const githubEnv = {
+// 	clientId: isProduction ? process.env.GITHUB_ID_PROD : process.env.GITHUB_ID_DEV,
+// 	clientSecret: isProduction ? process.env.GITHUB_SECRET_PROD : process.env.GITHUB_SECRET_DEV,
+// };
+
 export const nextAuthOptions = {
 	debug: false,
 	providers: [
 		GithubProvider({
-			clientId: process.env.GITHUB_ID || "",
-			clientSecret: process.env.GITHUB_SECRET || "",
+			clientId: process.env.GITHUB_ID,
+			clientSecret: process.env.GITHUB_SECRET,
 		}),
 	],
 	adapter: PrismaAdapter(prisma),
