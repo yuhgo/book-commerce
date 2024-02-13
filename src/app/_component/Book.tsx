@@ -56,7 +56,7 @@ export const Book: FC<Props> = (props) => {
 		} else {
 			setShowModal(false);
 			// ログインページへリダイレクト
-			router.push("/login");
+			router.push("/api/auth/signin");
 		}
 	};
 

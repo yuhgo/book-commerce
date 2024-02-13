@@ -22,5 +22,7 @@ declare namespace NodeJS {
 		readonly API_URL: string | "";
 		readonly API_URL_DEV: string | "";
 		readonly API_URL_PROD: string | "";
+
+		readonly BASE_URL: string | "";
 	}
 }

@@ -26,9 +26,8 @@ export async function POST(request: Request, _response: Response) {
 				},
 			],
 			mode: "payment",
-			// biome-ignore lint/style/noUnusedTemplateLiteral: udemyのコース通りに書くため一旦無視
-			success_url: `http://localhost:3000/book/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: "http://localhost:3000",
+			success_url: `${process.env.BASE_URL}/book/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+			cancel_url: `${process.env.BASE_URL}`,
 		});
 
 		return NextResponse.json({ checkout_url: session.url });
