@@ -3,7 +3,11 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export async function POST(request: Request, _response: Response) {
+export async function POST(
+	request: Request,
+	_response: Response,
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+): Promise<NextResponse<{ checkout_url: string } | any>> {
 	const { title, price, bookId, userId } = await request.json();
 
 	try {

@@ -3,24 +3,22 @@
 import Image from "next/image";
 import { type FC, useState } from "react";
 
+import { postCheckout } from "@/app/_lib/api/postCheckout";
 import type { BookContent } from "@/app/_types/response";
-import { useSession } from "next-auth/react";
+import type { User } from "next-auth";
 import { useRouter } from "next/navigation";
 
 type Props = {
 	book: BookContent;
 	isPurchased: boolean;
+	user?: User;
 };
 
-type CheckoutData = Pick<BookContent, "title" | "price">;
-
 export const Book: FC<Props> = (props) => {
-	const { book, isPurchased } = props;
+	const { book, isPurchased, user } = props;
 
 	const [showModal, setShowModal] = useState(false);
 	const router = useRouter();
-	const { data } = useSession();
-	const user = data?.user;
 
 	const handlePurChaseClick = () => {
 		if (isPurchased) {
@@ -30,19 +28,11 @@ export const Book: FC<Props> = (props) => {
 		setShowModal(true);
 	};
 
-	const startCheckout = async ({ title, price }: CheckoutData) => {
+	const startCheckout = async (book: BookContent, user?: User) => {
 		try {
-			const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ title, price, bookId: book.id, userId: user?.id }),
-			});
-
-			const resData = await res.json();
-			if (resData) {
-				router.push(resData.checkout_url);
+			const checkoutData = await postCheckout(book, user);
+			if (checkoutData) {
+				router.push(checkoutData.checkout_url);
 			}
 		} catch (error) {
 			console.error("Error:", error);
@@ -52,7 +42,7 @@ export const Book: FC<Props> = (props) => {
 	const handlePurchaseConfirm = () => {
 		if (user) {
 			// Stripeの決済処理
-			startCheckout({ title: book.title, price: book.price });
+			startCheckout(book, user);
 		} else {
 			setShowModal(false);
 			// ログインページへリダイレクト

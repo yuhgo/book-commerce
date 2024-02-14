@@ -1,4 +1,4 @@
-import type { CheckoutSuccessResponse } from "@/app/api/checkout/success/route";
+import { postCheckoutSuccess } from "@/app/_lib/api/postCheckoutSuccess";
 import Link from "next/link";
 import type { FC } from "react";
 
@@ -11,19 +11,9 @@ const PurchaseSuccess: FC<Props> = async (props) => {
 
 	const sessionId = (searchParams.session_id as string) ?? "";
 
-	const data = await fetch(`${process.env.API_URL}/checkout/success`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({ sessionId }),
-	})
-		.then(async (res) => {
-			return (await res.json()) as CheckoutSuccessResponse;
-		})
-		.catch((error) => console.error(error));
+	const checkoutSuccessData = await postCheckoutSuccess(sessionId);
 
-	const purchasedBookId = data?.purchase?.bookId ?? "";
+	const purchasedBookId = checkoutSuccessData?.purchase?.bookId ?? "";
 	const purchasedBookUrl = purchasedBookId ? `/book/${purchasedBookId}` : "/";
 
 	return (

@@ -1,7 +1,7 @@
 import { PurchasedBook } from "@/app/_component/PurchasedBook";
+import { getPurchases } from "@/app/_lib/api/getPurchases";
 import { getDetailBook } from "@/app/_lib/microcms/client";
 import { nextAuthOptions } from "@/app/_lib/nextAuth/options";
-import type { Purchase } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 
@@ -9,8 +9,7 @@ const ProfilePage = async () => {
 	const session = await getServerSession(nextAuthOptions);
 	const user = session?.user;
 
-	const res = await fetch(`${process.env.API_URL}/purchases/${user?.id}`, { cache: "no-store" });
-	const purchasesData = (await res.json()) as Purchase[];
+	const purchasesData = user?.id ? await getPurchases(user?.id) : [];
 
 	const purchasedBooks = await Promise.all(
 		purchasesData.map(async (purchase) => {
